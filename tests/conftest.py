@@ -19,6 +19,21 @@ coockies = [{'domain': 'samokat.ru', 'expiry': 1769106694, 'httpOnly': True, 'na
             ]
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        '--browser',
+        help='Браузер на котором будут запущены тесты',
+        choices=['chrome', 'firefox'],
+        default='chrome'
+    )
+
+    parser.addoption(
+        '--browser_version',
+        help='Версия браузера на котором будут запущены тесты',
+        choices=['126.0', '125.0', '124.0', '123.0', '100.0'],
+        default='125.0'
+    )
+
 @pytest.fixture(scope='session', autouse=True)
 def load_env():
     load_dotenv()
