@@ -1,10 +1,7 @@
-import time
-
 import pytest
 from helpers.pages.main_page import MainPage
 from helpers.data_provider import DataProvider
 
-product_name = 'виноград'
 
 @pytest.mark.usefixtures('browser_with_selected_address')
 class TestsSearchProduct:

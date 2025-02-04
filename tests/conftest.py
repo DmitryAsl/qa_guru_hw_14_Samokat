@@ -1,8 +1,12 @@
 import time
-
 import pytest
 from selenium import webdriver
-from selene import browser, have, be
+from selene import browser
+from dotenv import load_dotenv
+from selenium.webdriver.chrome.options import Options
+import os
+
+from utils import attach
 
 coockies = [{'domain': 'samokat.ru', 'expiry': 1769106694, 'httpOnly': True, 'name': '__Secure-next-auth.session-token',
              'path': '/', 'sameSite': 'Lax', 'secure': True,
@@ -15,25 +19,53 @@ coockies = [{'domain': 'samokat.ru', 'expiry': 1769106694, 'httpOnly': True, 'na
             ]
 
 
+@pytest.fixture(scope='session', autouse=True)
+def load_env():
+    load_dotenv()
+
+
 @pytest.fixture(scope='session')
-def browser_config():
-    driver_options = webdriver.ChromeOptions()
-    driver_options.page_load_strategy = 'eager'
-    driver_options.add_argument("--no-sandbox")
-    driver_options.add_argument("--disable-dev-shm-usage")
-    driver_options.add_argument("--start-maximized")
-    driver_options.add_argument("--disable-extensions")
-    driver_options.add_argument("--disable-gpu")
-    driver_options.add_argument("--disable-cache")
-    driver_options.add_argument("--dns-prefetch-disable")
-    #driver_options.add_argument("--verbose")
-    #driver_options.add_argument("--log-path=chromedriver.log")
-    driver_options.add_argument("--incognito")
-    browser.config.timeout = 10
+def browser_config(request):
+    browser_name = request.config.getoption('--browser')
+    browser_version = request.config.getoption('--browser_version')
+    options = Options()
+    login = os.getenv('LOGIN')
+    password = os.getenv("PASSWORD")
+
+    selenoid_capabilities = {
+        "browserName": browser_name,
+        "browserVersion": browser_version,
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": True
+        }
+    }
+    options.page_load_strategy = 'eager'
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-cache")
+    options.capabilities.update(selenoid_capabilities)
+
+    driver = webdriver.Remote(
+        command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
+        options=options)
+
+    browser.config.driver = driver
     browser.config.window_width = 1920
     browser.config.window_height = 1080
     browser.config.base_url = 'https://samokat.ru'
-    browser.config.driver_options = driver_options
+
+
+    yield
+
+    attach.add_screenshot(browser)
+    attach.add_logs(browser)
+    attach.add_html(browser)
+    attach.add_video(browser)
+
+    browser.quit()
+
 
 @pytest.fixture(scope='class')
 def browser_with_selected_address(browser_config):
@@ -41,8 +73,5 @@ def browser_with_selected_address(browser_config):
 
     for coockie in coockies:
         browser.driver.add_cookie(coockie)
-    time.sleep(2)
+    time.sleep(1)
     browser.open('/')
-
-    yield
-    browser.quit()
