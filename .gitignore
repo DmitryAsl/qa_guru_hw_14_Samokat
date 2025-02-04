@@ -177,4 +177,5 @@ cython_debug/
 /.idea/qa_guru_hw_14_Samokat.iml
 /.idea/vcs.xml
 
+/allure-results
 .env
