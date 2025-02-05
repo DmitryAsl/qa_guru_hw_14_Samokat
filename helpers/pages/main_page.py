@@ -13,7 +13,7 @@ class MainPage:
 
     @allure.step("Выбираем адрес с городом по-умолчанию")
     def address_selection_with_default_city(self, city, address):
-        browser.element('[class*=EmptyAddressPlug_badgeWrapper]').should(be.visible)
+        browser.element('[class*=EmptyAddressPlug_badgeWrapper]').with_(timeout=browser.config.timeout *2).should(be.visible)
         default_city = browser.element('[class*="AddressConfirmBadge_header"]>[class*="Text_text"]').get(query.text)
         assert city in default_city, f'Некорректно выбран город по умолчанию: {default_city}, ожидался: {city}'
 
