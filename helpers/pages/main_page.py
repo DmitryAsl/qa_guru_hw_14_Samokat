@@ -7,7 +7,7 @@ import allure
 
 class MainPage:
 
-    @allure.step(f"Открываем сайт - {browser.config.base_url}")
+    @allure.step(f"Открываем сайт")
     def open(self):
         browser.open('/')
 
@@ -61,6 +61,9 @@ class MainPage:
             price = int(price_text.split(' ')[0])
             cost += price
         return cost
+
+    def check_selected_address(self):
+        return self.__get_selected_address().should()
 
     @allure.step("Проверяем результат добавление товара в корзины")
     def assert_result_addition_product_to_cart(self, product_name):

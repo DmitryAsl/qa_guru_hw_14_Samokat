@@ -1,7 +1,7 @@
 import pytest
 from helpers.pages.main_page import MainPage
 from helpers.data_provider import DataProvider
-from selene import browser
+
 
 @pytest.mark.usefixtures('browser_config')
 class TestAddress:

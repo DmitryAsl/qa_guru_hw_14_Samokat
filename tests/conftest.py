@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from selenium.webdriver.chrome.options import Options
 import os
 
+from helpers.pages.main_page import MainPage
 from utils import attach
 
 coockies = [{'domain': 'samokat.ru', 'expiry': 1769106694, 'httpOnly': True, 'name': '__Secure-next-auth.session-token',
@@ -34,12 +35,13 @@ def pytest_addoption(parser):
         default='125.0'
     )
 
+
 @pytest.fixture(scope='session', autouse=True)
 def load_env():
     load_dotenv()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='class')
 def browser_config(request):
     browser_name = request.config.getoption('--browser')
     browser_version = request.config.getoption('--browser_version')
@@ -71,7 +73,6 @@ def browser_config(request):
     browser.config.window_height = 1080
     browser.config.base_url = 'https://samokat.ru'
 
-
     yield
 
     attach.add_screenshot(browser)
@@ -84,9 +85,11 @@ def browser_config(request):
 
 @pytest.fixture(scope='class')
 def browser_with_selected_address(browser_config):
-    browser.open('/')
+    main_page = MainPage()
+    main_page.open()
 
     for coockie in coockies:
         browser.driver.add_cookie(coockie)
-    time.sleep(1)
-    browser.open('/')
+
+    main_page.open()
+    main_page.open()
