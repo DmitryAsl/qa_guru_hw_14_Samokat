@@ -22,7 +22,7 @@
 <details>
 <summary><h3> Запуск тестов с помощью Jenkins </h3></summary>
 
-  > **Перейти в [сборку](https://jenkins.autotests.cloud/job/C17_dmitry_asl_hw14_Samokat/)**
+  > **Перейти в [сборку](https://jenkins.autotests.cloud/job/C17_dmitry_asl_hw14_Samokat/)**  
   > **Перейти на вкладку "Build with Parameters"** 
   <p>
   <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/jenkins.jpg" />
