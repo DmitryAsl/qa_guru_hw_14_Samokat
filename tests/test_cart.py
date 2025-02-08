@@ -1,3 +1,4 @@
+import allure
 import pytest
 from helpers.pages.main_page import MainPage
 from helpers.data_provider import DataProvider
@@ -6,6 +7,7 @@ from helpers.data_provider import DataProvider
 @pytest.mark.usefixtures('browser_with_selected_address')
 class TestCart:
 
+    @allure.title('Тест на добавление товара в корзину')
     def test_add_single_item_to_cart(self):
         main_page = MainPage()
         param = DataProvider.get('', 'cart', 'add_single_product')
@@ -19,6 +21,7 @@ class TestCart:
         finally:
             main_page.clear_cart()
 
+    @allure.title('Тест на удаление товара в корзину')
     def test_remove_item_from_cart(self):
         main_page = MainPage()
 
@@ -33,6 +36,7 @@ class TestCart:
         finally:
             main_page.clear_cart()
 
+    @allure.title('Тест на проверку корректности расчета стоимости корзины')
     def test_total_price_by_cart(self):
         main_page = MainPage()
         param = DataProvider.get('', 'cart', 'check_total_price')
