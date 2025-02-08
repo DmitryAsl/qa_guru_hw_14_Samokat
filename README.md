@@ -69,3 +69,5 @@
 ![](https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/address_test.gif)
 
 
+#### Для вопросов и предложений можно связаться в [telegram](https://t.me/Dmitry_Asl) 
+
