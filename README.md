@@ -48,7 +48,7 @@
 
 ### Отчет о результатах в Allure <img src="https://avatars.githubusercontent.com/u/5879127?s=200&v=4" height=30 weight=30 />
 > В качестве системы отчетности выбран **Allure Report**  
-> Для перехода в отчет, в левом углу нажать на иконку на вашем запуске  
+> Для перехода в отчет, в левом углу нажать на иконку на Вашем запуске  
   <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/check_build.jpg" />
   
 > В открывшемся окне представлена общая информация по тестам  
@@ -58,8 +58,8 @@
 
 ### Отправка оповещения прохождения тестов в Telegram <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/Telegram.svg" height=30 weight=30 />
 
-> Автоматически настроена отправка оповещения о результатах прохождения тестов в чат **Telegram** с тегом ответственных людей  
-> В оповещении присутствует общая информация о запуске и ссылка на отчет в **Allure**  
+> Автоматически настроена отправка оповещения о результатах прохождения тестов в чат **Telegram** с тегом ответственных людей.  
+> В оповещении присутствует общая информация о запуске и ссылка на отчет в **Allure**.  
 >> Для наглядности был выбран запуск тестов с ошибкой
 <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/telegram_notific.jpg" />
 
