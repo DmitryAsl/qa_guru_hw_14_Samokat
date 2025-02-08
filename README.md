@@ -31,9 +31,9 @@
   > **Выбрать параметры из выпадающих список и нажать "Build"**
   <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/build_jenkins.jpg" />
   
-  > dfsd
+  > Результаты запуска находятся в левом углу, последний запуск
+  <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/check_build.jpg" />
 </details>
-
 <details>
 <summary><h3> Запуск тестов локально </h3></summary>  
   В терминале выполнить команду
@@ -45,3 +45,21 @@
   > **--browser** - браузер в котором запустят тесты (доступен еще firefox)  
   > **--browser_version** - версия запускаемого браузера  
 </details>
+
+### Отчет о результатах в Allure
+
+> В левом углу нажать на иконку Allure на последнем запуске  
+  <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/check_build.jpg" />
+  
+> В открывшемся окне представлена общая информация по тестам  
+>> Для подробной информации переходим на вкладку **Suits** и раскрываем все тесты для наглядности  
+>>> При нажатии на конкретный тест справа отображается подробная информация по нему  
+ <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/allure_result_green.jpg" />
+
+
+
+
+
+
+
+
