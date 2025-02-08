@@ -64,5 +64,8 @@
 <img src="https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/telegram_notific.jpg" />
 
 ### Демонстрация прохождения одного из тестов
+> Выбор адреса доставки
+
+![](https://github.com/DmitryAsl/qa_guru_hw_14_Samokat/blob/main/data/icons/address_test.gif)
 
 
