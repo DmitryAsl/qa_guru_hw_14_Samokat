@@ -24,8 +24,8 @@ class TestCart:
     @allure.title('Тест на удаление товара в корзину')
     def test_remove_item_from_cart(self):
         main_page = MainPage()
-
         param = DataProvider.get('', 'cart', 'remove_product')
+
         try:
             main_page.search_product(param['search_phrace'])
             main_page.add_product_to_cart(param['product_name'])
@@ -40,6 +40,7 @@ class TestCart:
     def test_total_price_by_cart(self):
         main_page = MainPage()
         param = DataProvider.get('', 'cart', 'check_total_price')
+
         try:
             main_page.search_product(param['search_phrace'])
             main_page.add_product_to_cart(param['product_name_1'])
