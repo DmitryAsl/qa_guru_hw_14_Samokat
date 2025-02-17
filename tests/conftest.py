@@ -35,6 +35,13 @@ def pytest_addoption(parser):
         default='125.0'
     )
 
+    parser.addoption(
+        '--run_mode',
+        help='Режим запуска автотестов: remote/local',
+        choices=['remote', 'local'],
+        default='local'
+    )
+
 
 @pytest.fixture(scope='session', autouse=True)
 def load_env():
@@ -45,6 +52,7 @@ def load_env():
 def browser_config(request):
     browser_name = request.config.getoption('--browser')
     browser_version = request.config.getoption('--browser_version')
+    run_mode = request.config.getoption('--run_mode')
     options = Options()
     login = os.getenv('LOGIN')
     password = os.getenv("PASSWORD")
@@ -64,11 +72,12 @@ def browser_config(request):
     options.add_argument("--disable-cache")
     options.capabilities.update(selenoid_capabilities)
 
-    driver = webdriver.Remote(
-        command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
-        options=options)
+    if run_mode == 'remote':
+        driver = webdriver.Remote(
+            command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
+            options=options)
+        browser.config.driver = driver
 
-    browser.config.driver = driver
     browser.config.window_width = 1920
     browser.config.window_height = 1080
     browser.config.base_url = 'https://samokat.ru'
