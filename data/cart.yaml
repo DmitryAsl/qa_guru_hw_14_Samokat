@@ -10,6 +10,6 @@ remove_product:
 check_total_price:
   search_phrace: яблоки
   product_name_1: Яблоки Россия
-  product_name_2: Яблоки Роял гала
+  product_name_2: Яблоки Гренни смит
   product_name_3: Яблоки Голден
   quantity: 3
