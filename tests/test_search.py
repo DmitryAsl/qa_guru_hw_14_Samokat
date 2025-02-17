@@ -5,22 +5,21 @@ from helpers.data_provider import DataProvider
 from tests.conftest import browser_config
 
 
-@pytest.mark.usefixtures('browser_config')
 class TestsSearchProduct:
+    main_page = MainPage()
+
     @allure.title('Тест на поиск товара')
     def test_search_product_positive(self):
-        main_page = MainPage()
         param = DataProvider.get('', 'search', 'search_positive')
 
-        main_page.open()
-        main_page.search_product(param['title'])
-        main_page.assert_result_search(param['title'])
+        self.main_page.open()
+        self.main_page.search_product(param['title'])
+        self.main_page.assert_result_search(param['title'])
 
     @allure.title('Тест на поиск несуществующего товара')
     def test_search_product_negative(self):
-        main_page = MainPage()
         param = DataProvider.get('', 'search', 'search_negative')
 
-        main_page.open()
-        main_page.search_product(param['title'])
-        main_page.assert_result_search(positive=False)
+        self.main_page.open()
+        self.main_page.search_product(param['title'])
+        self.main_page.assert_result_search(positive=False)

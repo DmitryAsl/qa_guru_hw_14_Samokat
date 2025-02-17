@@ -1,6 +1,6 @@
 import time
 
-from selene import browser, have, be, command, query, by
+from selene import browser, have, be, query
 from selenium.webdriver.common.keys import Keys
 import allure
 
@@ -10,7 +10,7 @@ class MainPage:
     @allure.step(f"Открываем сайт")
     def open(self):
         browser.open('/')
-
+    
     @allure.step("Выбираем адрес с городом по-умолчанию")
     def address_selection_with_default_city(self, city, address):
         browser.element('[class*=EmptyAddressPlug_badgeWrapper]').with_(timeout=browser.config.timeout *2).should(be.visible)
@@ -45,6 +45,7 @@ class MainPage:
         for item in items:
             item.element('[class*="ProductItem_cross"]>svg').click()
         self.assert_empty_cart()
+        # пришлось поставить т.к. не всегда успевает удалять товары
         time.sleep(1)
 
     @allure.step("Удаляем продукт из корзины")

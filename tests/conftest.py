@@ -41,7 +41,7 @@ def load_env():
     load_dotenv()
 
 
-@pytest.fixture(scope='class')
+@pytest.fixture(scope='function', autouse=True)
 def browser_config(request):
     browser_name = request.config.getoption('--browser')
     browser_version = request.config.getoption('--browser_version')
@@ -83,7 +83,7 @@ def browser_config(request):
     browser.quit()
 
 
-@pytest.fixture(scope='class')
+@pytest.fixture(scope='function')
 def browser_with_selected_address(browser_config):
     main_page = MainPage()
     main_page.open()
@@ -91,5 +91,6 @@ def browser_with_selected_address(browser_config):
     for coockie in coockies:
         browser.driver.add_cookie(coockie)
 
+    # одной перезагрузки страницы почему то хватает не всегда
     main_page.open()
     main_page.open()
