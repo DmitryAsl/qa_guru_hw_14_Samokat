@@ -2,9 +2,11 @@ import os
 import json
 import yaml
 
+
 class DataProvider:
 
-    def get(path: str, name: str, partition: str = None, extension: str = 'yaml'):
+    @staticmethod
+    def get(name: str, path: str = '', partition: str = None, extension: str = 'yaml'):
         path = path.replace('/', os.sep)
         file_path = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', 'data', path, f'{name}.{extension}'))
 

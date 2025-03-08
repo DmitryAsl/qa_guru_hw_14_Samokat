@@ -13,3 +13,7 @@ check_total_price:
   product_name_2: Яблоки Гренни смит
   product_name_3: Яблоки Голден
   quantity: 3
+
+cart_item_quantity_increase:
+  search_phrace: бананы
+  quantity: 2

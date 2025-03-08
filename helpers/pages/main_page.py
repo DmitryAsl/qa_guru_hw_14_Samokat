@@ -1,5 +1,4 @@
 import time
-
 from selene import browser, have, be, query
 from selenium.webdriver.common.keys import Keys
 import allure
@@ -10,10 +9,11 @@ class MainPage:
     @allure.step(f"Открываем сайт")
     def open(self):
         browser.open('/')
-    
+
     @allure.step("Выбираем адрес с городом по-умолчанию")
     def address_selection_with_default_city(self, city, address):
-        browser.element('[class*=EmptyAddressPlug_badgeWrapper]').with_(timeout=browser.config.timeout *2).should(be.visible)
+        browser.element('[class*=EmptyAddressPlug_badgeWrapper]').with_(timeout=browser.config.timeout * 2).should(
+            be.visible)
         default_city = browser.element('[class*="AddressConfirmBadge_header"]>[class*="Text_text"]').get(query.text)
         assert city in default_city, f'Некорректно выбран город по умолчанию: {default_city}, ожидался: {city}'
 
@@ -32,12 +32,22 @@ class MainPage:
         # старый элемент главной страницы долго убирается из DOM дерева
         browser.element('[class*="ProductSlider_slider"]').should(be.not_.visible)
 
-    @allure.step("Добавляем продукт в корзину")
-    def add_product_to_cart(self, product_name):
+    @allure.step("Добавляем продукт в корзину по названию")
+    def add_product_to_cart_by_name(self, product_name):
         result = self.__get_productlist_details().should(have.size_greater_than(0))
         product_cart = result.element_by(have.text(product_name))
         product_cart.element(
             './/ancestor::div[contains(@class, "ProductCard_content")]//div[contains(@class, "ProductCardActions_increase")]').click()
+
+    @allure.step("Добавляем первый продукт в корзину из результатов поиска")
+    def add_first_product_from_search_to_cart(self):
+        result = self.__get_productlist_details().should(have.size_greater_than(0))
+        result.first.element(
+            './/ancestor::div[contains(@class, "ProductCard_content")]//div[contains(@class, "ProductCardActions_increase")]').click()
+
+    @allure.step("Увеличиваем количество конкретного товара в корзине")
+    def product_quantity_increase_from_cart(self):
+        browser.element('[class*="CartItemActions_root"] path[fill-rule="evenodd"]').click()
 
     @allure.step("Очищаем корзину")
     def clear_cart(self):
@@ -97,9 +107,14 @@ class MainPage:
             f'Указан некорректный адрес: "{address_text}", ожидался "{address}"'
 
     @allure.step("Проверяем корректность количества товара в корзине")
-    def should_have_count_product_in_cart(self, count):
+    def should_have_cart_items_count(self, count):
         assert count == len(
             self.__get_products_from_cart()), f' Некорректное количество товара в корзине - {len(self.__get_products_from_cart())}, ожидалось {count}'
+
+    @allure.step("Проверяем корректность количества конкретного товара в корзине")
+    def should_have_product_quantity_in_cart(self, count):
+        product_quantity = browser.element('[class*="CartItemActions_root"] [class*= "Text_text"]').get(query.text)
+        assert count == int(product_quantity)
 
     def __get_selected_address(self):
         return browser.element('[class*="CartHeader_address_clickable"]')
